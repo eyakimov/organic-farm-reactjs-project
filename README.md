@@ -1,1 +1,1 @@
-# organic-farm-reactjs-project
+# Organic farm - ReactJS project
