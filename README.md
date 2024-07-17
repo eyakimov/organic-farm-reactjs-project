@@ -1,1 +1,6 @@
-# Organic farm - ReactJS project
+# Organic Farm - React project
+made by Emil Yakimov
+
+# Initialize project
+ * npm create vite . -- --template react
+ * 
