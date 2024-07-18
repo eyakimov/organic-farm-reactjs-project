@@ -1,0 +1,30 @@
+{
+    "products": {
+        "0d6529a3-5338-4adb-a12b-1d5144106f9d": {
+            "name": "Tommatoes",
+            "category": "Vegetables",
+            "description": "",
+            "price": "2.50",
+            "img": "",
+            "createdAt": "",
+            "modifiedAt": "",
+            "ownerId": "",
+            "likes": "",
+            "dislikes": "",
+            "_id": "0d6529a3-5338-4adb-a12b-1d5144106f9d"
+        },
+        "089603af-4848-46f4-8096-2532b9b5aaae": {
+            "name": "Peaches",
+            "category": "Fruits",
+            "description": "",
+            "price": "4.50",
+            "img": "",
+            "createdAt": "",
+            "modifiedAt": "",
+            "ownerId": "",
+            "likes": "",
+            "dislikes": "",
+            "_id": "089603af-4848-46f4-8096-2532b9b5aaae"
+        }
+    }
+}
