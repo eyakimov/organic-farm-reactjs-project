@@ -1,4 +1,5 @@
-import Vegetable from "./Vegetable";
+import ProductsList from "./list/ProductsList";
+
 
 export default function Products() {
     return (
@@ -8,12 +9,8 @@ export default function Products() {
                     <h6 className="text-primary text-uppercase">Products</h6>
                     <h1 className="display-5">Our Fresh & Organic Products</h1>
                 </div>
-                <div className="owl-carousel product-carousel px-5">
-                    <Vegetable />
-                    <Vegetable />
-                    <Vegetable />
-                    <Vegetable />
-                    <Vegetable />
+                <div className="mx-auto px-5">
+                    <ProductsList />
                 </div>
             </div>
         </div>
