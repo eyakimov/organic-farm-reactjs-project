@@ -19,10 +19,14 @@ export default function ProductsList() {
                     ? <Spinner />
                     : (
                         <div className={styles['products-list']}>
-                            {Object.values(products).map(product => <ProductCard key={product._id} {...product} />)}
+                            {Object.values(products).map(product =>
+                                <div className="p-2" >
+                                    <ProductCard key={product._id} {...product} />
+                                </div>
+                            )}
                         </div>
                     )
-            }        
+            }
         </>
     );
 }

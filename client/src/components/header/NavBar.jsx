@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function NavBar() {
     return (
@@ -15,8 +15,11 @@ export default function NavBar() {
                     <Link to="/products" className="nav-item nav-link">Products</Link>
                     <Link to="/about" className="nav-item nav-link">About</Link>
                     <Link to="/contact" className="nav-item nav-link">Contact</Link>
+                </div>
+                <div className="navbar-nav flex ml-auto">
                     <Link to="/login" className="nav-item nav-link">Login</Link>
                     <Link to="/register" className="nav-item nav-link">Register</Link>
+                    <Link to="/products/create" className="nav-item nav-link">Create</Link>
                 </div>
             </div>
         </nav>
