@@ -9,7 +9,7 @@ function ProductCard({
     img,
 }) {
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '22rem' }}>
             <Card.Img variant="top" src={img} />
             <Card.Body>
                 <Card.Title>{name}</Card.Title>

@@ -1,45 +1,70 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useForm } from '../../../hooks/useForm';
+import { useEffect, useRef, useState } from 'react';
 
 const initialFormValues = {
+    _id: '',
     name: '',
     category: '',
     img: '',
     description: '',
     price: '',
-    createdAt: new Date().toISOString(),
+    modifiedAt: new Date().toISOString(),
 };
 
-export default function ProductCreate() {
-
+export default function ProductEdit() {
+    const inputRef = useRef();
+    const { productId } = useParams();
     const navigate = useNavigate();
+    const [tempFormValues, setTempFormValues] = useState(initialFormValues);
 
-    const formSubmitHanlder = async (values) => {
-        const response = await fetch('http://localhost:3030/jsonstore/organic-farm/products', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...values }),
-        });
+    useEffect(() => {
+        (async () => {
+            const response = await fetch(`http://localhost:3030/jsonstore/organic-farm/products/${productId}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-        const result = await response.json();
+            const result = await response.json();
+            setTempFormValues(result);
+        })();
 
-        navigate(`/products/${result._id}`);
+        inputRef.current.focus();
+    }, []);
+
+    const changeHandler = (e) => {
+        setTempFormValues(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
     };
 
-    const { values, changeHandler, submitHandler } = useForm(initialFormValues, formSubmitHanlder);
+    const formSubmitHanlder = (e) => {
+        e.preventDefault();
+
+        (async () => {
+            const response = await fetch(`http://localhost:3030/jsonstore/organic-farm/products/${productId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...tempFormValues }),
+            });
+
+            navigate(`/products/${productId}`);
+        })();
+    };
 
     return (
         <div className="container-fluid py-5">
             <div className="container">
                 <div className="mx-auto text-center mb-5" style={{ maxWidth: 500 + 'px' }}>
-                    <h6 className="text-primary text-uppercase">Create Product</h6>
-                    <h1 className="display-5">Please Feel To Create Product</h1>
+                    <h6 className="text-primary text-uppercase">Edit Product</h6>
+                    <h1 className="display-5">Please Feel To Edit Product</h1>
                 </div>
                 <div className="mx-auto" style={{ maxWidth: 500 + 'px' }}>
                     <div className="col">
                         <div className="bg-primary h-100 p-5">
-                            <form onSubmit={submitHandler} method="POST">
+                            <form onSubmit={formSubmitHanlder} method="POST">
                                 <div className="row g-3">
                                     <div className="col-12">
                                         <label htmlFor="name" className="col-form-label-sm text-white">
@@ -47,10 +72,11 @@ export default function ProductCreate() {
                                         </label>
                                         <input
                                             type="text"
+                                            ref={inputRef}
                                             id="name"
                                             name="name"
                                             className="form-control bg-light border-0 px-4"
-                                            value={values.name}
+                                            value={tempFormValues.name}
                                             onChange={changeHandler}
                                         />
                                     </div>
@@ -61,7 +87,7 @@ export default function ProductCreate() {
                                             id="fruits"
                                             name="category"
                                             value="Fruits"
-                                            checked={values.category === 'Fruits'}
+                                            checked={tempFormValues.category === 'Fruits'}
                                             onChange={changeHandler}
                                         />
                                         <label htmlFor="fruits" className="col-form-label-sm text-white px-2">Fruits</label>
@@ -70,7 +96,7 @@ export default function ProductCreate() {
                                             id="vegetables"
                                             name="category"
                                             value="Vegetables"
-                                            checked={values.category === 'Vegetables'}
+                                            checked={tempFormValues.category === 'Vegetables'}
                                             onChange={changeHandler}
                                         />
                                         <label htmlFor="vegetables" className="col-form-label-sm text-white px-2">Vegetables</label>
@@ -85,7 +111,7 @@ export default function ProductCreate() {
                                             name="img"
                                             placeholder="https://(image link)..."
                                             className="form-control bg-light border-0 px-4"
-                                            value={values.img}
+                                            value={tempFormValues.img}
                                             onChange={changeHandler}
                                         />
                                     </div>
@@ -99,7 +125,7 @@ export default function ProductCreate() {
                                             name="description"
                                             placeholder="Intoduce your product here..."
                                             className="form-control bg-light border-0 px-4"
-                                            value={values.description}
+                                            value={tempFormValues.description}
                                             onChange={changeHandler}
                                         >
                                         </textarea>
@@ -116,11 +142,11 @@ export default function ProductCreate() {
                                             name="price"
                                             className="form-control bg-light border-0 px-4"
                                             placeholder="0.00"
-                                            value={values.price}
+                                            value={tempFormValues.price}
                                             onChange={changeHandler}
                                         />
                                     </div>
-                                    <button className="btn btn-secondary w-100 py-3" type="submit">Create</button>
+                                    <button className="btn btn-secondary w-100 py-3" type="submit">Save</button>
                                 </div>
                             </form>
                         </div>

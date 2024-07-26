@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../../../hooks/useFetch";
 
 export default function ProductDetails() {
@@ -18,6 +18,11 @@ export default function ProductDetails() {
             <p className="mb-2 bg-primary text-white">
                 {product.description}
             </p>
+            <p className="mb-2 bg-primary text-white">
+                {product.price}
+            </p>
+
+            <Link to={`/products/${product._id}/edit`} className="btn btn-primary py-md-3 px-md-5 me-3">Edit</Link>
         </div>
     );
 }

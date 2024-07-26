@@ -20,8 +20,8 @@ export default function ProductsList() {
                     : (
                         <div className={styles['products-list']}>
                             {Object.values(products).map(product =>
-                                <div className="p-2" >
-                                    <ProductCard key={product._id} {...product} />
+                                <div className="p-2" key={product._id}>
+                                    <ProductCard {...product} />
                                 </div>
                             )}
                         </div>

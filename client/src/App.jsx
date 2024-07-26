@@ -10,6 +10,7 @@ import Register from './components/register/Register'
 import Header from './components/header/Header'
 import ProductDetails from './components/products/details/ProductDetails'
 import ProductCreate from './components/products/create/ProductCreate'
+import ProductEdit from './components/products/edit/ProductEdit'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/products/:productId' element={<ProductDetails />} />
+        <Route path='/products/:productId/edit' element={<ProductEdit/>} />
         <Route path='/products/create' element={<ProductCreate />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
