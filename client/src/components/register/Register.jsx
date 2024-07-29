@@ -12,13 +12,13 @@ export default function Register(){
                             <form>
                                 <div className="row g-3">
                                     <div className="col-12">
-                                        <input type="text" className="form-control bg-light border-0 px-4" placeholder="Username" style={{height: 55+'px'}} />
+                                        <input type="text" name="email" className="form-control bg-light border-0 px-4" placeholder="Email" style={{height: 55+'px'}} />
                                     </div>
                                     <div className="col-12">
-                                        <input type="password" className="form-control bg-light border-0 px-4" placeholder="Password" style={{height: 55+'px'}} />
+                                        <input type="password" name="password" className="form-control bg-light border-0 px-4" placeholder="Password" style={{height: 55+'px'}} />
                                     </div>
                                     <div className="col-12">
-                                        <input type="password" className="form-control bg-light border-0 px-4" placeholder="Repeat Password" style={{height: 55+'px'}} />
+                                        <input type="password" name="repassword" className="form-control bg-light border-0 px-4" placeholder="Repeat Password" style={{height: 55+'px'}} />
                                     </div>
                                     <div className="col-12">
                                         <button className="btn btn-secondary w-100 py-3" type="submit">Register</button>

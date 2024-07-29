@@ -11,10 +11,12 @@ import Header from './components/header/Header'
 import ProductDetails from './components/products/details/ProductDetails'
 import ProductCreate from './components/products/create/ProductCreate'
 import ProductEdit from './components/products/edit/ProductEdit'
+import { AuthContextProvider } from './contexts/AuthContextProvider'
+import Logout from './components/logout/logout'
 
 function App() {
   return (
-    <>      
+    <AuthContextProvider>      
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -25,10 +27,11 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<Register />} />
       </Routes>
       <Footer />
-    </>
+    </ AuthContextProvider>
   )
 }
 
