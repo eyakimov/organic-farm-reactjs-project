@@ -1,21 +1,33 @@
-import { useFetch } from '../../../hooks/useFetch';
+import { useEffect, useState } from 'react';
+import Spinner from 'react-bootstrap/esm/Spinner';
 
 import ProductCard from '../card/ProductCard';
 import styles from '../../../App.module.css';
-
-import Spinner from 'react-bootstrap/esm/Spinner';
+import * as productAPI from '../../../api/products-api';
 
 export default function ProductsList() {
-    const {
-        data: products,
-        isFetching,
-        refetch,
-    } = useFetch('http://localhost:3030/jsonstore/organic-farm/products/', {});
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+
+        productAPI.getAll()
+            .then(result => {
+                if (result.message) {
+                    throw ('Unsucssessful fetch');
+                } else {
+                    setProducts(result);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+    }, []);
 
     return (
-        <>
+        <div className="mx-auto px-2">
             {
-                isFetching
+                products.length === 0
                     ? <Spinner />
                     : (
                         <div className={styles['products-list']}>
@@ -27,6 +39,6 @@ export default function ProductsList() {
                         </div>
                     )
             }
-        </>
+        </div>
     );
 }

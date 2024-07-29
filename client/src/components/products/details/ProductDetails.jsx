@@ -1,10 +1,27 @@
 import { Link, useParams } from "react-router-dom";
-import { useFetch } from "../../../hooks/useFetch";
+import { useEffect, useState } from "react";
+
+import * as productAPI from '../../../api/products-api';
 
 export default function ProductDetails() {
     const { productId } = useParams();
-    const { data: product, isFetching } =
-        useFetch(`http://localhost:3030/jsonstore/organic-farm/products/${productId}`, {});
+    const [product, setProduct] = useState({});
+
+    useEffect(() => {
+
+        productAPI.getOne(productId)
+            .then(result => {
+                if (result.message) {
+                    throw ('Unsucssessful fetch');
+                } else {
+                    setProduct(result);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+    }, []);
     return (
         <div className="mx-auto text-center mb-5" style={{ maxWidth: 500 + 'px' }}>
             <h1>

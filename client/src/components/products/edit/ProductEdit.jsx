@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useForm } from '../../../hooks/useForm';
 import { useEffect, useRef, useState } from 'react';
+import * as productAPI from '../../../api/products-api';
 
 const initialFormValues = {
     _id: '',
@@ -20,17 +20,21 @@ export default function ProductEdit() {
     const [tempFormValues, setTempFormValues] = useState(initialFormValues);
 
     useEffect(() => {
-        (async () => {
-            const response = await fetch(`http://localhost:3030/jsonstore/organic-farm/products/${productId}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
+
+        productAPI.getOne(productId)
+            .then(result => {
+                if (result.message) {
+                    throw ('Unsucssessful fetch');
+                } else {
+                    setTempFormValues(result);
+                }
+            })
+            .catch(err => {
+                console.log(err);
             });
 
-            const result = await response.json();
-            setTempFormValues(result);
-        })();
-
         inputRef.current.focus();
+
     }, []);
 
     const changeHandler = (e) => {
