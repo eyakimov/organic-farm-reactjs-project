@@ -1,11 +1,9 @@
 import requester from "./requester";
 import api from "./api";
 
-export const login = async (email, password) => { 
-    const authData = await requester.post(`${api.LOGIN}`, {email, password});
-    
-    return authData;
-}
+export const login = (email, password) => requester.post(`${api.LOGIN}`, {email, password});
+
+export const register = (email, password, repassword) => requester.post(`${api.REGISTER}`, {email, password, repassword});
 
 export function getUser() {
     try {
