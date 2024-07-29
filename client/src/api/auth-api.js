@@ -5,6 +5,8 @@ export const login = (email, password) => requester.post(`${api.LOGIN}`, {email,
 
 export const register = (email, password, repassword) => requester.post(`${api.REGISTER}`, {email, password, repassword});
 
+export const logout = () => requester.get(`${api.LOGOUT}`);
+
 export function getUser() {
     try {
         const user = localStorage.getItem('user');

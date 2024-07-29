@@ -12,7 +12,7 @@ import ProductDetails from './components/products/details/ProductDetails'
 import ProductCreate from './components/products/create/ProductCreate'
 import ProductEdit from './components/products/edit/ProductEdit'
 import { AuthContextProvider } from './contexts/AuthContextProvider'
-import Logout from './components/logout/logout'
+import Logout from './components/logout/Logout'
 
 function App() {
   return (

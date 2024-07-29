@@ -24,6 +24,11 @@ async function request(method, url, data) {
         }
     }
     const response = await fetch(url, options);
+
+    if (response.status === 204) {
+        return;
+    }
+
     return response.json();
 }
 
@@ -32,7 +37,7 @@ export const post = request.bind(null, 'POST');
 export const put = request.bind(null, 'PUT');
 export const del = request.bind(null, 'DELETE');
 
-export default{
+export default {
     get,
     post,
     put,
