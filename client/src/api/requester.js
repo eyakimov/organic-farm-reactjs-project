@@ -25,12 +25,12 @@ async function request(method, url, data) {
     }
     const response = await fetch(url, options);
 
-    if (!response.ok){
-        throw await response.json();
-    }
-
     if (response.status === 204) {
         return;
+    }
+
+    if (!response.ok){
+        throw await response.json();
     }
 
     return response.json();

@@ -10,7 +10,7 @@ export const logout = () => requester.get(`${api.LOGOUT}`);
 export function getUser() {
     try {
         const user = localStorage.getItem('auth');
-
+        
         if (user) return JSON.parse(user);
     } catch (error) {
         return undefined;

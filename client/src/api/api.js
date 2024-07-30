@@ -1,6 +1,6 @@
 export const BASE_URL = 'http://localhost:3030';
 
-export const PRODUCTS = `${BASE_URL}/jsonstore/organic-farm/products`;
+export const PRODUCTS = `${BASE_URL}/data/products`;
 
 export const LOGIN = `${BASE_URL}/users/login`;
 export const REGISTER = `${BASE_URL}/users/register`;

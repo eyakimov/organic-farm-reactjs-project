@@ -1,30 +1,31 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import { useForm } from '../../../hooks/useForm';
+import { create } from '../../../api/products-api';
 
 const initialFormValues = {
+    _id: '',
     name: '',
     category: '',
     img: '',
     description: '',
     price: '',
-    createdAt: new Date().toISOString(),
+    _createdOn: Date.now(),
 };
 
 export default function ProductCreate() {
 
     const navigate = useNavigate();
+    const [error, setError] = useState('');
 
     const formSubmitHanlder = async (values) => {
-        const response = await fetch('http://localhost:3030/jsonstore/organic-farm/products', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...values }),
-        });
-
-        const result = await response.json();
-
-        navigate(`/products/${result._id}`);
+        try {
+            const { _id: productId } = await create(values);
+            navigate(`/products/${productId}`);
+        } catch (err) {
+            setError(err.message);
+        };
     };
 
     const { values, changeHandler, submitHandler } = useForm(initialFormValues, formSubmitHanlder);

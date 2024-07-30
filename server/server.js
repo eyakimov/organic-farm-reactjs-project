@@ -1339,6 +1339,30 @@
     	}
     };
     var seedData = {
+        products: {
+        "0d6529a3-5338-4adb-a12b-1d5144106f9d": {
+            name: "Tomatoes",
+            category: "Vegetables",
+            description: "The tomatoes are grown on an organic farm",
+            price: "2.50",
+            img: "/img/product-1.png",
+            _createdOn: 1722376851379,
+            _modifiedOn: "",
+            _ownerId: "60f0cf0b-34b0-4abd-9769-8c42f830dffc",
+            _id: "0d6529a3-5338-4adb-a12b-1d5144106f9d"
+        },
+        "089603af-4848-46f4-8096-2532b9b5aaae": {
+            name: "Peaches",
+            category: "Fruits",
+            description: "The peaches are grown on an organic farm",
+            price: "4.50",
+            img: "/img/product-2.png",
+            _createdOn: 1722376989998,
+            _modifiedOn: "",
+            _ownerId: "847ec027-f659-4086-8032-5173e2f9c93a",
+            _id: "089603af-4848-46f4-8096-2532b9b5aaae"
+        }
+    },
     	recipes: {
     		"3987279d-0ad4-4afb-8ca9-5b256ae3b298": {
     			_ownerId: "35c62d76-8152-4626-8712-eeb96381bea8",
