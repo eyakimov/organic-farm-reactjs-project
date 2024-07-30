@@ -21,8 +21,9 @@ export default function NavBar() {
                     {isAuthenticated
                         ? (
                             <div id="user" className="navbar-nav flex ml-auto">
-                                <Link to="/logout" className="nav-item nav-link">Logout</Link>
+                                <Link to="/products/owner" className="nav-item nav-link">My Products</Link>
                                 <Link to="/products/create" className="nav-item nav-link">Create Product</Link>
+                                <Link to="/logout" className="nav-item nav-link">Logout</Link>
                             </div>
                         )
                         :

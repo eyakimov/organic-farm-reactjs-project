@@ -13,6 +13,7 @@ import ProductCreate from './components/products/create/ProductCreate'
 import ProductEdit from './components/products/edit/ProductEdit'
 import { AuthContextProvider } from './contexts/AuthContextProvider'
 import Logout from './components/logout/Logout'
+import ProductsOwner from './components/products/owner/ProductsOwner'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/products/:productId' element={<ProductDetails />} />
         <Route path='/products/:productId/edit' element={<ProductEdit/>} />
         <Route path='/products/create' element={<ProductCreate />} />
+        <Route path='/products/owner' element={<ProductsOwner />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/login' element={<Login />} />

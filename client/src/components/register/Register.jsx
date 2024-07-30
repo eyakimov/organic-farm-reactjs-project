@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import { useRegister } from "../../hooks/useAuth"
 import { useForm } from "../../hooks/useForm";
 
@@ -10,15 +12,23 @@ const initialValues = {
 }
 
 export default function Register() {
+    const [error, setError] = useState('');
     const register = useRegister(initialValues);
     const navigate = useNavigate();
-    const registerHandler = async ({ email, password }) => {
+    const registerHandler = async ({ email, password, rePassword }) => {
+
+        if (password !== rePassword) {
+            setError('Passwords are different!');
+            return;
+        }
+
         try {
-            await register(email, password)
+            await register(email, password);
             navigate("/");
         } catch (err) {
-            console.log(err.message);
+            setError(err.message);
         }
+        
     };
     const { values, changeHandler, submitHandler } = useForm(initialValues, registerHandler);
 
@@ -57,13 +67,18 @@ export default function Register() {
                                     <div className="col-12">
                                         <input
                                             type="password"
-                                            name="repassword"
+                                            name="rePassword"
                                             value={values.rePassword}
                                             onChange={changeHandler}
                                             className="form-control bg-light border-0 px-4"
                                             placeholder="Repeat Password"
                                             style={{ height: 55 + 'px' }} />
                                     </div>
+                                    {error &&
+                                        <p className="text-danger mx-auto text-center mx-2">
+                                            {error}
+                                        </p>
+                                    }
                                     <div className="col-12">
                                         <button className="btn btn-secondary w-100 py-3" type="submit">Register</button>
                                     </div>
