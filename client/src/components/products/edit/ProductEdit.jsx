@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
-
 import { useEffect, useRef, useState } from 'react';
-import * as productAPI from '../../../api/products-api';
+
+import { getOne, update} from '../../../api/products-api';
+import { useForm } from '../../../hooks/useForm';
 
 const initialFormValues = {
     _id: '',
@@ -10,53 +11,41 @@ const initialFormValues = {
     img: '',
     description: '',
     price: '',
-    modifiedAt: new Date().toISOString(),
+    _modifiedOn: Date.now(),
 };
 
 export default function ProductEdit() {
     const inputRef = useRef();
     const { productId } = useParams();
+    const [product, setProduct] = useState(initialFormValues);
     const navigate = useNavigate();
-    const [tempFormValues, setTempFormValues] = useState(initialFormValues);
+    const [error, setError] = useState('');
 
     useEffect(() => {
 
-        productAPI.getOne(productId)
-            .then(result => {
-                if (result.message) {
-                    throw ('Unsucssessful fetch');
-                } else {
-                    setTempFormValues(result);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        (async () => {
+            try {
+                const result = await getOne(productId);
+                setProduct(result);
+            } catch (err) {
+                setError(err.message);
+            };
+        })();
 
         inputRef.current.focus();
 
     }, []);
 
-    const changeHandler = (e) => {
-        setTempFormValues(prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-        }));
-    };
-
-    const formSubmitHanlder = (e) => {
-        e.preventDefault();
-
-        (async () => {
-            const response = await fetch(`http://localhost:3030/jsonstore/organic-farm/products/${productId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...tempFormValues }),
-            });
-
+    const formSubmitHanlder = async (values) => {
+        try {
+            const { _id: productId } = await update(values, values._id);
             navigate(`/products/${productId}`);
-        })();
+        } catch (err) {
+            setError(err.message);
+        };
     };
+
+    const { values, changeHandler, submitHandler } = useForm(product, formSubmitHanlder);
 
     return (
         <div className="container-fluid py-5">
@@ -68,7 +57,7 @@ export default function ProductEdit() {
                 <div className="mx-auto" style={{ maxWidth: 500 + 'px' }}>
                     <div className="col">
                         <div className="bg-primary h-100 p-5">
-                            <form onSubmit={formSubmitHanlder} method="POST">
+                            <form onSubmit={submitHandler} method="POST">
                                 <div className="row g-3">
                                     <div className="col-12">
                                         <label htmlFor="name" className="col-form-label-sm text-white">
@@ -80,7 +69,7 @@ export default function ProductEdit() {
                                             id="name"
                                             name="name"
                                             className="form-control bg-light border-0 px-4"
-                                            value={tempFormValues.name}
+                                            value={values.name}
                                             onChange={changeHandler}
                                         />
                                     </div>
@@ -91,7 +80,7 @@ export default function ProductEdit() {
                                             id="fruits"
                                             name="category"
                                             value="Fruits"
-                                            checked={tempFormValues.category === 'Fruits'}
+                                            checked={values.category === 'Fruits'}
                                             onChange={changeHandler}
                                         />
                                         <label htmlFor="fruits" className="col-form-label-sm text-white px-2">Fruits</label>
@@ -100,7 +89,7 @@ export default function ProductEdit() {
                                             id="vegetables"
                                             name="category"
                                             value="Vegetables"
-                                            checked={tempFormValues.category === 'Vegetables'}
+                                            checked={values.category === 'Vegetables'}
                                             onChange={changeHandler}
                                         />
                                         <label htmlFor="vegetables" className="col-form-label-sm text-white px-2">Vegetables</label>
@@ -115,7 +104,7 @@ export default function ProductEdit() {
                                             name="img"
                                             placeholder="https://(image link)..."
                                             className="form-control bg-light border-0 px-4"
-                                            value={tempFormValues.img}
+                                            value={values.img}
                                             onChange={changeHandler}
                                         />
                                     </div>
@@ -129,7 +118,7 @@ export default function ProductEdit() {
                                             name="description"
                                             placeholder="Intoduce your product here..."
                                             className="form-control bg-light border-0 px-4"
-                                            value={tempFormValues.description}
+                                            value={values.description}
                                             onChange={changeHandler}
                                         >
                                         </textarea>
@@ -146,7 +135,7 @@ export default function ProductEdit() {
                                             name="price"
                                             className="form-control bg-light border-0 px-4"
                                             placeholder="0.00"
-                                            value={tempFormValues.price}
+                                            value={values.price}
                                             onChange={changeHandler}
                                         />
                                     </div>

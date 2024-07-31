@@ -1,27 +1,29 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import * as productAPI from '../../../api/products-api';
+import { getOne } from "../../../api/products-api";
+import { AuthContext, useAuthContext } from "../../../contexts/AuthContextProvider";
+
 
 export default function ProductDetails() {
     const { productId } = useParams();
     const [product, setProduct] = useState({});
+    const [error, setError] = useState('');
+    const { userId } = useAuthContext(AuthContext);
 
     useEffect(() => {
 
-        productAPI.getOne(productId)
-            .then(result => {
-                if (result.message) {
-                    throw ('Unsucssessful fetch');
-                } else {
-                    setProduct(result);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        (async () => {
+            try {
+                const result = await getOne(productId);
+                setProduct(result);
+            } catch (err) {
+                setError(err.message);
+            };
+        })();
 
     }, []);
+
     return (
         <div className="mx-auto text-center mb-5" style={{ maxWidth: 500 + 'px' }}>
             <h1>
@@ -39,7 +41,12 @@ export default function ProductDetails() {
                 {product.price}
             </p>
 
-            <Link to={`/products/${product._id}/edit`} className="btn btn-primary py-md-3 px-md-5 me-3">Edit</Link>
+            {product._ownerId === userId &&
+                <div className="mx-auto text-center">
+                    <Link as={Link} to={`/products/${product._id}/edit`} className="btn btn-secondary py-md-3 px-md-5 me-3">Edit</Link>
+                    <Link as={Link} to={`/products/${product._id}`} className="btn btn-danger py-md-3 px-md-5 me-3">Delete</Link>
+                </div>
+            }
         </div>
     );
 }

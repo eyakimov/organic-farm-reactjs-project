@@ -3,24 +3,23 @@ import Spinner from 'react-bootstrap/esm/Spinner';
 
 import ProductCard from '../card/ProductCard';
 import styles from '../../../App.module.css';
-import * as productAPI from '../../../api/products-api';
+import {getAll} from '../../../api/products-api';
 
 export default function ProductsList() {
     const [products, setProducts] = useState([]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
 
-        productAPI.getAll()
-            .then(result => {
-                if (result.message) {
-                    throw ('Unsucssessful fetch');
-                } else {
-                    setProducts(result);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        (async () => {
+            try {
+                const result = await getAll();
+                setProducts(result);
+            } catch (err) {
+                setError(err.message);
+            };
+        })();
+
 
     }, []);
 
