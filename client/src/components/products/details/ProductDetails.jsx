@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 
 import { getOne } from "../../../api/products-api";
 import { AuthContext, useAuthContext } from "../../../contexts/AuthContextProvider";
+import CommentsCreate from "../../comments/CommentsCreate";
+import Comments from "../../comments/Comments";
 
 
 export default function ProductDetails() {
@@ -41,10 +43,18 @@ export default function ProductDetails() {
                 {product.price}
             </p>
 
+                <Comments />
+
             {product._ownerId === userId &&
                 <div className="mx-auto text-center">
                     <Link as={Link} to={`/products/${product._id}/edit`} className="btn btn-secondary py-md-3 px-md-5 me-3">Edit</Link>
                     <Link as={Link} to={`/products/${product._id}`} className="btn btn-danger py-md-3 px-md-5 me-3">Delete</Link>
+                </div>
+            }
+
+            {product._ownerId !== userId &&
+                <div className="mx-auto text-center">
+                    <CommentsCreate />
                 </div>
             }
         </div>
