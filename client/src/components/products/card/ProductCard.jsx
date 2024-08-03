@@ -1,15 +1,30 @@
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+
 import { AuthContext, useAuthContext } from '../../../contexts/AuthContextProvider';
+import { remove } from '../../../api/products-api';
 
 function ProductCard({
     _id,
     name,
     price,
     img,
-    _ownerId,}) {
+    _ownerId, }) {
     const { userId } = useAuthContext(AuthContext);
+
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+    const deleteProductHandler = async () => {
+            try {
+                await remove(_id);
+                navigate("/");
+            } catch (err) {
+                setError(err.message);
+            };
+        };
 
     return (
         <Card style={{ width: '22rem' }}>
@@ -20,8 +35,8 @@ function ProductCard({
                 <Button as={Link} to={`/products/${_id}`} variant="primary mb-2">Details</Button>
                 {_ownerId === userId &&
                     <div className="mx-auto text-center">
-                        <Button as={Link} to={`/products/${_id}/edit`} variant="secondary mx-2">Edit</Button>
-                        <Button as={Link} to={`/products/${_id}`} variant="danger mx-2">Delete</Button>
+                        <Button as={Link} to={`/products/${_id}/edit`} variant="btn btn-secondary py-md-3 px-md-5 me-3">Edit</Button>
+                        <button className="btn btn-danger py-md-3 px-md-5 me-3" onClick={deleteProductHandler}>Delete</button>
                     </div>
                 }
             </Card.Body>

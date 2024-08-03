@@ -11,4 +11,13 @@ export const create = (productData) => request.post(api.PRODUCTS, productData);
 
 export const update = (productData, id) => request.put(`${api.PRODUCTS}/${id}`, productData);
 
-export const del = (id) => request.del(`${api.PRODUCTS}/${id}`);
+export const remove = (id) => request.del(`${api.PRODUCTS}/${id}`);
+
+export default {
+    getAll,
+    getOne,
+    getMy,
+    create,
+    update,
+    remove,
+}
