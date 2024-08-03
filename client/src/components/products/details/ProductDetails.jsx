@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getOne, remove } from "../../../api/products-api";
 import { AuthContext, useAuthContext } from "../../../contexts/AuthContextProvider";
 import CommentsCreate from "../../comments/CommentsCreate";
+import Comments from "../../comments/Comments";
 
 
 export default function ProductDetails() {
@@ -28,7 +29,7 @@ export default function ProductDetails() {
 
     const deleteProductHandler = async () => {
             try {
-                await remove(_id);
+                await remove(productId);
                 navigate("/");
             } catch (err) {
                 setError(err.message);
