@@ -62,10 +62,12 @@ export default function ProductDetails() {
                 </div>
             }
 
-            {product._ownerId !== userId &&
+            {userId &&
+             product._ownerId !== userId &&
                 <div className="mx-auto text-center">
                     <CommentsCreate />
                 </div>
+            
             }
         </div>
     );

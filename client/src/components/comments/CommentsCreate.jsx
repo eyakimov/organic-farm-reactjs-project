@@ -13,18 +13,21 @@ export default function CommentsCreate() {
         comment: '',
         productId: productId,
     };
-    
+
+    const [comment, setComment] = useState(initialFormValues);
+
     const [error, setError] = useState('');
 
     const formSubmitHanlder = async (values) => {
         try {
             await create(values);
+            setComment(initialFormValues);
         } catch (err) {
             setError(err.message);
         };
     };
 
-    const { values, changeHandler, submitHandler } = useForm(initialFormValues, formSubmitHanlder);
+    const { values, changeHandler, submitHandler } = useForm(comment, formSubmitHanlder);
 
     return (
         <div className="container-fluid py-5">
