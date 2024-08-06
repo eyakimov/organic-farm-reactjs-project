@@ -28,13 +28,17 @@ export default function ProductDetails() {
     }, []);
 
     const deleteProductHandler = async () => {
-            try {
-                await remove(productId);
-                navigate("/");
-            } catch (err) {
-                setError(err.message);
-            };
+        const isConfirmed = confirm(`Are you sure you want to delete ${product.name} product?`);
+        if (!isConfirmed) {
+            return;
+        }
+        try {
+            await remove(productId);
+            navigate("/");
+        } catch (err) {
+            setError(err.message);
         };
+    };
 
     return (
         <div className="mx-auto text-center mb-5" style={{ maxWidth: 500 + 'px' }}>
@@ -63,11 +67,11 @@ export default function ProductDetails() {
             }
 
             {userId &&
-             product._ownerId !== userId &&
+                product._ownerId !== userId &&
                 <div className="mx-auto text-center">
                     <CommentsCreate />
                 </div>
-            
+
             }
         </div>
     );

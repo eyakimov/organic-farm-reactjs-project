@@ -18,13 +18,17 @@ function ProductCard({
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const deleteProductHandler = async () => {
-            try {
-                await remove(_id);
-                navigate("/");
-            } catch (err) {
-                setError(err.message);
-            };
+        const isConfirmed = confirm(`Are you sure you want to delete ${product.name} product?`);
+        if (!isConfirmed) {
+            return;
+        }
+        try {
+            await remove(_id);
+            navigate("/");
+        } catch (err) {
+            setError(err.message);
         };
+    };
 
     return (
         <Card style={{ width: '22rem' }}>

@@ -27,11 +27,11 @@ export default function Comments() {
             <div className="mx-auto text-center mb-5" style={{ maxWidth: 500 + 'px' }}>
                 <h6 className="text-primary text-uppercase">Comments:</h6>
             </div>
-            {!comments
+            {comments.length === 0
                 ? <p>No comments.</p>
-                : <ul className="mx-auto px-5">
+                : <ul className="list-group">
                     {comments.map(comment =>
-                        <li className="p-2" key={comment._id}>
+                        <li className="list-group-item p-2" key={comment._id}>
                             {comment.comment}
                         </li>
                     )}
