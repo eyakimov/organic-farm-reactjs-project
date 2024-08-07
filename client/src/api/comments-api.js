@@ -1,11 +1,15 @@
 import * as api from './api.js';
 import * as request from './requester';
 
-export const getAll = (productId) => request.get(`${api.COMMENTS}?where=productId%3D%22${productId}%22&sortBy=_createdOn%20desc`);
-
+export const getAll = (productId) => {
+    const params = new URLSearchParams({
+        where: `productId="${productId}"`,
+        load: `author=_ownerId:users`,
+    })
+    
+    return request.get(`${api.COMMENTS}?${params.toString()}`);
+};
 export const create = (commentData) => request.post(api.COMMENTS, commentData);
-
-export const removeComments= (productId) => request.del(`${api.COMMENTS}?where=productId%3D%22${productId}`);
 
 export default {
     getAll,
