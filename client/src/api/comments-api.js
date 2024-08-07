@@ -14,5 +14,4 @@ export const create = (commentData) => request.post(api.COMMENTS, commentData);
 export default {
     getAll,
     create,
-    removeComments,
 }

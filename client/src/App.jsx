@@ -14,23 +14,26 @@ import ProductEdit from './components/products/edit/ProductEdit'
 import { AuthContextProvider } from './contexts/AuthContextProvider'
 import Logout from './components/logout/Logout'
 import ProductsOwner from './components/products/owner/ProductsOwner'
+import UserRoutes from './components/common/UserRoutes'
 
 function App() {
   return (
-    <AuthContextProvider>      
+    <AuthContextProvider>
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/products/:productId' element={<ProductDetails />} />
-        <Route path='/products/:productId/edit' element={<ProductEdit/>} />
-        <Route path='/products/create' element={<ProductCreate />} />
-        <Route path='/products/owner' element={<ProductsOwner />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/logout' element={<Logout />} />
         <Route path='/register' element={<Register />} />
+        <Route element={<UserRoutes />}>
+          <Route path='/products/:productId/edit' element={<ProductEdit />} />
+          <Route path='/products/create' element={<ProductCreate />} />
+          <Route path='/products/owner' element={<ProductsOwner />} />
+          <Route path='/logout' element={<Logout />} />
+        </Route>
       </Routes>
       <Footer />
     </ AuthContextProvider>
