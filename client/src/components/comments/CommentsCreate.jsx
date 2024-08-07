@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { useForm } from '../../hooks/useForm';
 import { create } from '../../api/comments-api';
+import { useNotificationContext } from '../../contexts/NotificationContextProvider';
 
 export default function CommentsCreate() {
     const { productId } = useParams();
@@ -15,6 +16,7 @@ export default function CommentsCreate() {
     };
 
     const [comment, setComment] = useState(initialFormValues);
+    const { addNotification } = useNotificationContext();
 
     const [error, setError] = useState('');
 
@@ -24,6 +26,7 @@ export default function CommentsCreate() {
             setComment(initialFormValues);
         } catch (err) {
             setError(err.message);
+            addNotification(error);
         };
     };
 

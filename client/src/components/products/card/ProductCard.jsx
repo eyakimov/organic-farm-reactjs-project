@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 
 import { AuthContext, useAuthContext } from '../../../contexts/AuthContextProvider';
 import { remove } from '../../../api/products-api';
+import { useNotificationContext } from '../../../contexts/NotificationContextProvider';
 
 function ProductCard({
     _id,
@@ -14,6 +15,7 @@ function ProductCard({
     img,
     _ownerId, }) {
     const { userId } = useAuthContext(AuthContext);
+    const { addNotification } = useNotificationContext();
 
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -27,6 +29,7 @@ function ProductCard({
             navigate("/");
         } catch (err) {
             setError(err.message);
+            addNotification(error);
         };
     };
 

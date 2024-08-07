@@ -5,11 +5,13 @@ import ProductCard from '../card/ProductCard';
 import styles from '../../../App.module.css';
 import { getMy } from '../../../api/products-api';
 import { AuthContext, useAuthContext } from '../../../contexts/AuthContextProvider';
+import { useNotificationContext } from '../../../contexts/NotificationContextProvider';
 
 export default function ProductsOwner() {
     const [products, setProducts] = useState([]);
     const { userId } = useAuthContext(AuthContext);
     const [error, setError] = useState('');
+    const { addNotification } = useNotificationContext();
 
     useEffect(() => {
 
@@ -19,6 +21,7 @@ export default function ProductsOwner() {
                 setProducts(result);
             } catch (err) {
                 setError(err.message);
+                addNotification(error);
             };
         })();
 

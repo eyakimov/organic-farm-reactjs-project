@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
-import { getOne, update} from '../../../api/products-api';
+import { getOne, update } from '../../../api/products-api';
 import { useForm } from '../../../hooks/useForm';
+import { useNotificationContext } from '../../../contexts/NotificationContextProvider';
 
 const initialFormValues = {
     _id: '',
@@ -20,6 +21,7 @@ export default function ProductEdit() {
     const [product, setProduct] = useState(initialFormValues);
     const navigate = useNavigate();
     const [error, setError] = useState('');
+    const { addNotification } = useNotificationContext();
 
     useEffect(() => {
 
@@ -29,6 +31,7 @@ export default function ProductEdit() {
                 setProduct(result);
             } catch (err) {
                 setError(err.message);
+                addNotification(error);
             };
         })();
 
@@ -42,6 +45,7 @@ export default function ProductEdit() {
             navigate(`/products/${productId}`);
         } catch (err) {
             setError(err.message);
+            addNotification(error);
         };
     };
 

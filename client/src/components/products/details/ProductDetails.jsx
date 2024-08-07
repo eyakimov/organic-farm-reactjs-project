@@ -5,6 +5,7 @@ import { getOne, remove } from "../../../api/products-api";
 import { AuthContext, useAuthContext } from "../../../contexts/AuthContextProvider";
 import CommentsCreate from "../../comments/CommentsCreate";
 import Comments from "../../comments/Comments";
+import { useNotificationContext } from "../../../contexts/NotificationContextProvider";
 
 
 export default function ProductDetails() {
@@ -13,6 +14,7 @@ export default function ProductDetails() {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const { userId } = useAuthContext(AuthContext);
+    const { addNotification } = useNotificationContext();
 
     useEffect(() => {
 
@@ -22,6 +24,7 @@ export default function ProductDetails() {
                 setProduct(result);
             } catch (err) {
                 setError(err.message);
+                addNotification(error);
             };
         })();
 
@@ -37,6 +40,7 @@ export default function ProductDetails() {
             navigate("/");
         } catch (err) {
             setError(err.message);
+            addNotification(error);
         };
     };
 

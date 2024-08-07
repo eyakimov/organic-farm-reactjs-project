@@ -4,10 +4,12 @@ import Spinner from 'react-bootstrap/esm/Spinner';
 import ProductCard from '../card/ProductCard';
 import styles from '../../../App.module.css';
 import {getAll} from '../../../api/products-api';
+import { useNotificationContext } from '../../../contexts/NotificationContextProvider';
 
 export default function ProductsList() {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
+    const { addNotification } = useNotificationContext();
 
     useEffect(() => {
 
@@ -17,6 +19,7 @@ export default function ProductsList() {
                 setProducts(result);
             } catch (err) {
                 setError(err.message);
+                addNotification(error);
             };
         })();
 

@@ -15,27 +15,32 @@ import { AuthContextProvider } from './contexts/AuthContextProvider'
 import Logout from './components/logout/Logout'
 import ProductsOwner from './components/products/owner/ProductsOwner'
 import UserRoutes from './components/common/UserRoutes'
+import { NotificationContextProvider } from './contexts/NotificationContextProvider'
+import Notification from './components/common/Notification'
 
 function App() {
   return (
     <AuthContextProvider>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/products' element={<Products />} />
-        <Route path='/products/:productId' element={<ProductDetails />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route element={<UserRoutes />}>
-          <Route path='/products/:productId/edit' element={<ProductEdit />} />
-          <Route path='/products/create' element={<ProductCreate />} />
-          <Route path='/products/owner' element={<ProductsOwner />} />
-          <Route path='/logout' element={<Logout />} />
-        </Route>
-      </Routes>
-      <Footer />
+      <NotificationContextProvider>
+        <Header />
+        <Notification />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/products' element={<Products />} />
+          <Route path='/products/:productId' element={<ProductDetails />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route element={<UserRoutes />}>
+            <Route path='/products/:productId/edit' element={<ProductEdit />} />
+            <Route path='/products/create' element={<ProductCreate />} />
+            <Route path='/products/owner' element={<ProductsOwner />} />
+            <Route path='/logout' element={<Logout />} />
+          </Route>
+        </Routes>
+        <Footer />
+      </NotificationContextProvider>
     </ AuthContextProvider>
   )
 }

@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { getAll } from "../../api/comments-api";
+import { useNotificationContext } from "../../contexts/NotificationContextProvider";
 
 export default function Comments() {
     const { productId } = useParams();
     const [comments, setComments] = useState([]);
     const [error, setError] = useState('');
+    const { addNotification } = useNotificationContext();
 
     useEffect(() => {
 
@@ -16,6 +18,7 @@ export default function Comments() {
                 setComments(result);
             } catch (err) {
                 setError(err.message);
+                addNotification(error);
             };
         })();
 

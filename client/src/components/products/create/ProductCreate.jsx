@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { useForm } from '../../../hooks/useForm';
 import { create } from '../../../api/products-api';
+import { useNotificationContext } from '../../../contexts/NotificationContextProvider';
 
 const initialFormValues = {
     _id: '',
@@ -18,6 +19,7 @@ export default function ProductCreate() {
 
     const navigate = useNavigate();
     const [error, setError] = useState('');
+    const { addNotification } = useNotificationContext();
 
     const formSubmitHanlder = async (values) => {
         try {
@@ -25,6 +27,7 @@ export default function ProductCreate() {
             navigate(`/products/${productId}`);
         } catch (err) {
             setError(err.message);
+            addNotification(error);
         };
     };
 
