@@ -28,19 +28,6 @@ export default function Footer() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6 mt-lg-n5">
-                        <div className="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-secondary p-5">
-                            <h4 className="text-white">Newsletter</h4>
-                            <h6 className="text-white">Subscribe Our Newsletter</h6>
-                            <p>Amet justo diam dolor rebum lorem sit stet sea justo kasd</p>
-                            <form action="">
-                                <div className="input-group">
-                                    <input type="text" className="form-control border-white p-3" placeholder="Your Email" />
-                                        <button className="btn btn-primary">Sign Up</button>
-                                    </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div><div className="container-fluid bg-dark text-white py-4">

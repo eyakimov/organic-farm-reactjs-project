@@ -20,7 +20,7 @@ function ProductCard({
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const deleteProductHandler = async () => {
-        const isConfirmed = confirm(`Are you sure you want to delete ${product.name} product?`);
+        const isConfirmed = confirm(`Are you sure you want to delete ${name} product?`);
         if (!isConfirmed) {
             return;
         }
@@ -29,7 +29,7 @@ function ProductCard({
             navigate("/");
         } catch (err) {
             setError(err.message);
-            addNotification(error);
+            addNotification(err.message);
         };
     };
 

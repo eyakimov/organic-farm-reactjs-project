@@ -24,7 +24,7 @@ export default function ProductDetails() {
                 setProduct(result);
             } catch (err) {
                 setError(err.message);
-                addNotification(error);
+                addNotification(err.message);
             };
         })();
 
@@ -40,7 +40,7 @@ export default function ProductDetails() {
             navigate("/");
         } catch (err) {
             setError(err.message);
-            addNotification(error);
+            addNotification(err.message);
         };
     };
 

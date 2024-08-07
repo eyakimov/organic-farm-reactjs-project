@@ -31,7 +31,7 @@ export default function ProductEdit() {
                 setProduct(result);
             } catch (err) {
                 setError(err.message);
-                addNotification(error);
+                addNotification(err.message);
             };
         })();
 
@@ -45,7 +45,7 @@ export default function ProductEdit() {
             navigate(`/products/${productId}`);
         } catch (err) {
             setError(err.message);
-            addNotification(error);
+            addNotification(err.message);
         };
     };
 

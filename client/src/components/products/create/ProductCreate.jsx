@@ -27,7 +27,7 @@ export default function ProductCreate() {
             navigate(`/products/${productId}`);
         } catch (err) {
             setError(err.message);
-            addNotification(error);
+            addNotification(err.message);
         };
     };
 

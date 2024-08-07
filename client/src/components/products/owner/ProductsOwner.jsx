@@ -21,7 +21,7 @@ export default function ProductsOwner() {
                 setProducts(result);
             } catch (err) {
                 setError(err.message);
-                addNotification(error);
+                addNotification(err.message);
             };
         })();
 
